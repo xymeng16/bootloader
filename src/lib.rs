@@ -127,3 +127,18 @@ macro_rules! entry_point {
         }
     };
 }
+/// Defines the entry point function for the test cases.
+/// The usage fo this macro is the same as `entry_point()`
+#[macro_export]
+macro_rules! entry_point_test {
+    ($path:path) => {
+        #[cfg(test)]
+        #[export_name = "_start"]
+        pub extern "C" fn __impl_start(boot_info: &'static mut $crate::boot_info::BootInfo) -> ! {
+            // validate the signature of the program entry point
+            let f: fn(&'static mut $crate::boot_info::BootInfo) -> ! = $path;
+
+            f(boot_info)
+        }
+    };
+}
