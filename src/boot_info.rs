@@ -173,7 +173,7 @@ impl FrameBuffer {
         unsafe { slice::from_raw_parts_mut(self.buffer_start as *mut u8, self.buffer_byte_len) }
     }
 
-    fn raw_buffer_info(&self) -> (u64, usize) {
+    pub fn raw_buffer_info(&self) -> (u64, usize) {
         (self.buffer_start, self.buffer_byte_len)
     }
 
